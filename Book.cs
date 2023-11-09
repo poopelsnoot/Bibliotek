@@ -8,19 +8,16 @@ namespace Bibliotek
 {
     public class Book 
     {
-        private string titel;
-        private string författare;
-        public Låntagare? låntagare { get; set; }
+        public string titel { get; set; }
+        public string författare { get; set; }
+        public Låntagare? bokensLåntagare { get; set; } //om boken är utlånad kommer den ha en låntagare, annars är låntagare null
         public Utlåningsstatus utlåningsstatus { get; set; }
 
         public Book(string titel, string författare)
         {
-            utlåningsstatus = Utlåningsstatus.tillgänglig;
+            utlåningsstatus = Utlåningsstatus.tillgänglig; //nya böcker startar alltid som tillgängliga
             this.titel = titel;
             this.författare = författare;
         }
-
-        public string Titel { get { return titel; } }
-        public string Författare { get { return författare;} }
     }
 }
