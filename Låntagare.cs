@@ -8,10 +8,10 @@ namespace Bibliotek
 {
     public class Låntagare  
     {
-        private string namn;
-        private long personnummer;
-        public Book[] lånadeBöcker;
-        public int antalLånadeBöcker { get; set; }
+        public string namn;
+        public long personnummer;
+        public Book?[] lånadeBöcker; //array som innehåller de böcker en specifik låntagare lånar
+        public int antalLånadeBöcker;
 
         public Låntagare(string namn, long personnummer) 
         {
@@ -20,9 +20,6 @@ namespace Bibliotek
             lånadeBöcker = new Book[5]; //en låntagare får som mest låna 5 böcker samtidigt
             antalLånadeBöcker = 0;
         }
-
-        public string Namn { get { return namn; } }
-        public long Personnummer { get { return personnummer; } }
     }
 }
 

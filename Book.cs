@@ -8,10 +8,10 @@ namespace Bibliotek
 {
     public class Book 
     {
-        public string titel { get; set; }
-        public string författare { get; set; }
-        public Låntagare? bokensLåntagare { get; set; } //om boken är utlånad kommer den ha en låntagare, annars är låntagare null
-        public Utlåningsstatus utlåningsstatus { get; set; }
+        public string titel;
+        public string författare;
+        public Låntagare? bokensLåntagare; //om boken är utlånad kommer den ha en låntagare, annars är låntagare null
+        public Utlåningsstatus utlåningsstatus;
 
         public Book(string titel, string författare)
         {
