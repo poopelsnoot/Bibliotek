@@ -62,7 +62,7 @@ namespace Bibliotek
             
             if (låntagare == null)
             {
-                Console.WriteLine("Det finns ingen användare med det personnummret. Registrera ny användare?"); //finns ingen användare så registrera en ny eller gå tillbaka till menyn
+                Console.WriteLine("Det finns ingen användare med det personnummret. Registrera ny användare? ja/nej"); //finns ingen användare så registrera en ny eller gå tillbaka till menyn
                 while (true)
                 {
                     string jaNej = Console.ReadLine().ToLower();
@@ -82,6 +82,7 @@ namespace Bibliotek
             foreach (Book bok in bookList) //skriv ut alla tillgängliga böcker
             {
                 if (bok.utlåningsstatus == Utlåningsstatus.tillgänglig) Console.WriteLine($"Titel: {bok.titel} \nFörfattare: {bok.författare}");
+                Console.WriteLine();
             }
             Console.WriteLine("___________________________________________");
 
@@ -118,24 +119,15 @@ namespace Bibliotek
                 return; 
             }
 
-            //kolla så att låntagaren har någon bok att lämna tillbaka
-            int count = 0;
-            for (int i = 0; i < låntagare.lånadeBöcker.Length; i++)
-            {
-                if (låntagare.lånadeBöcker[i] != null) count++;
-            }
-            if (count == 0) { Console.WriteLine("Du har inte lånat några böcker."); return; } //har låntagaren inga böcker, gå tillbaka till menyn
-
             //kolla hur många böcker låntagaren har
             int index = 0;
+            int count = 0;
             for (int i = 0; i < låntagare.lånadeBöcker.Length; i++)
             {
                 if (låntagare.lånadeBöcker[i] != null) { count++; index = i; } 
             }
-            if (count == 1) //om det bara finns 1 bok kommer den lämnas tillbaka
-            {
-                ÄndraÅterlämnadBokInfo(låntagare, index);
-            }
+            if (count == 0) { Console.WriteLine("Användaren har inga lånade böcker."); return; } //har låntagaren inga böcker, gå tillbaka till menyn
+            if (count == 1) { ÄndraÅterlämnadBokInfo(låntagare, index); return; } //om det bara finns 1 bok kommer den lämnas tillbaka
 
             Console.WriteLine("Vilken bok ska lämnas tillbaka?");
             Console.WriteLine("___________________________________________");
@@ -144,7 +136,8 @@ namespace Bibliotek
             {
                 if (låntagare.lånadeBöcker[i] != null) //finns fler än 1 bok kommer alla skrivas ut och låntagaren får välja vilken som ska lämnas tillbaka
                 {
-                    Console.WriteLine($"Titel: {låntagare.lånadeBöcker[i].titel} \nFörfattare: {låntagare.lånadeBöcker[i].författare}\n");
+                    Console.WriteLine($"Titel: {låntagare.lånadeBöcker[i].titel} \nFörfattare: {låntagare.lånadeBöcker[i].författare}");
+                    Console.WriteLine();
                 }
             }
             Console.WriteLine("___________________________________________");
@@ -158,7 +151,7 @@ namespace Bibliotek
                     if (låntagare.lånadeBöcker[i] != null && låntagare.lånadeBöcker[i].titel == valdBok) //om titeln stämmer överens med en av låntagarens böcker så återlämnas den
                     {
                         ÄndraÅterlämnadBokInfo(låntagare, i);
-                        break;
+                        return;
                     }
                 }
                 Console.WriteLine("\nDet är inte en av dina lånade böcker, testa en annan.");
